@@ -85,6 +85,9 @@ if openai_api_key and models_lab_api_key:
                         )
                     else:
                         st.error("No audio generated. Please try again.")
+                        st.write("Debug info:", music)
+                        st.write("Content:", music.content)
+                        st.write("Messages:", music.messages)
 
                 except Exception as e:
                     st.error(f"An error occurred: {e}")
