@@ -3,7 +3,7 @@ from uuid import uuid4
 import requests
 from agno.agent import Agent
 from agno.run.agent import RunOutput
-from agno.models.openai import OpenAIChat
+from agno.models.google import Gemini
 from agno.tools.models_labs import FileType, ModelsLabTools
 from agno.utils.log import logger
 import streamlit as st
@@ -11,7 +11,7 @@ import streamlit as st
 # Sidebar: User enters the API keys
 st.sidebar.title("API Key Configuration")
 
-openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key", type="password")
+google_api_key = st.sidebar.text_input("Enter your Google Gemini API Key", type="password")
 models_lab_api_key = st.sidebar.text_input("Enter your ModelsLab API Key", type="password")
 
 # Streamlit App UI
@@ -19,11 +19,11 @@ st.title("TaalAI: Feel the Symphony")
 prompt = st.text_area("Enter a music generation prompt:", "Generate a 30 second classical music piece", height=100)
 
 # Initialize agent only if both API keys are provided
-if openai_api_key and models_lab_api_key:
+if google_api_key and models_lab_api_key:
     agent = Agent(
         name="ModelsLab",
 
-        model=OpenAIChat(id="gpt-4o", api_key=openai_api_key),
+        model=Gemini(id="gemini-1.5-flash", api_key=google_api_key),
 
         tools=[ModelsLabTools(api_key=models_lab_api_key, wait_for_completion=True, file_type=FileType.MP3)],
         description="You are an AI agent that can generate music using the ModelsLabs API.",
@@ -94,4 +94,4 @@ if openai_api_key and models_lab_api_key:
                     logger.error(f"Streamlit app error: {e}")
 
 else:
-    st.sidebar.warning("Please enter both the OpenAI and ModelsLab API keys to use the app.")
+    st.sidebar.warning("Please enter both the Google Gemini and ModelsLab API keys to use the app.")
