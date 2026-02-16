@@ -21,10 +21,10 @@ prompt = st.text_area("Enter a music generation prompt:", "Generate a 30 second 
 # Initialize agent only if both API keys are provided
 if openai_api_key and models_lab_api_key:
     agent = Agent(
-        name="ModelsLab Music Agent",
+        name="ModelsLab",
 
         model=OpenAIChat(id="gpt-4o", api_key=openai_api_key),
-        show_tool_calls=True,
+
         tools=[ModelsLabTools(api_key=models_lab_api_key, wait_for_completion=True, file_type=FileType.MP3)],
         description="You are an AI agent that can generate music using the ModelsLabs API.",
         instructions=[
