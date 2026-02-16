@@ -15,14 +15,14 @@ openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key", type="passwo
 models_lab_api_key = st.sidebar.text_input("Enter your ModelsLab API Key", type="password")
 
 # Streamlit App UI
-st.title("🎶 ModelsLab Music Generator")
+st.title("TaalAI: Feel the Symphony")
 prompt = st.text_area("Enter a music generation prompt:", "Generate a 30 second classical music piece", height=100)
 
 # Initialize agent only if both API keys are provided
 if openai_api_key and models_lab_api_key:
     agent = Agent(
         name="ModelsLab Music Agent",
-        agent_id="ml_music_agent",
+
         model=OpenAIChat(id="gpt-4o", api_key=openai_api_key),
         show_tool_calls=True,
         tools=[ModelsLabTools(api_key=models_lab_api_key, wait_for_completion=True, file_type=FileType.MP3)],
